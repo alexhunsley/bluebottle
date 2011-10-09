@@ -7,6 +7,7 @@
 //
 
 #import "BlueBottleViewController.h"
+#import "MethodsDAO.h"
 
 @interface BlueBottleViewController () 
 
@@ -17,17 +18,28 @@
 @end
 
 @implementation BlueBottleViewController
+@synthesize blueLineView;
+@synthesize methodNameView;
 @synthesize methodLabel;
 @synthesize stageLabel;
+@synthesize lineOrNameToggleButton;
 
 @synthesize methodNames;
 @synthesize currMethod;
 @synthesize currPlaceBell;
+@synthesize methods;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     NSLog(@" initWithCoder");
     if ((self = [super initWithCoder:aDecoder])) {
-        self.methodNames = [NSMutableArray arrayWithObjects:@"Cambridge", @"Yorkshire", @"Superlative", @"Lincolnshire", @"Rutland", @"Bristolgr", nil];
+//        self.methodNames = [NSMutableArray arrayWithObjects:@"Cambridge", @"Yorkshire", @"Superlative", @"Lincolnshire", @"Rutland", @"Bristol", nil];
+        showingBlueLine = false;
+        if (!self.methods) {
+            NSLog(@" LOADING METHODS");
+            MethodsDAO *dao = [[MethodsDAO alloc] initWithFilename:@"bluebottleMethods.sqlite"];
+            self.methods = [dao getAllMethods];
+            //[dao release];
+        }
     }
     return self;
 }
@@ -45,6 +57,10 @@
 {
     [methodLabel release];
     [stageLabel release];
+    [lineOrNameToggleButton release];
+    [methods release];
+    [blueLineView release];
+    [methodNameView release];
     [super dealloc];
 }
 
@@ -70,14 +86,19 @@
     int newPlaceBell = 0;
     
     do {
-        newMethod = rand () % [methodNames count];
+//        newMethod = rand () % [methodNames count];
+        newMethod = rand () % [methods count];
         newPlaceBell = 2 + rand () % 7;
         
     } while (newMethod == currMethod && newPlaceBell == currPlaceBell);
     currMethod = newMethod;
     currPlaceBell = newPlaceBell;
-    methodLabel.text = [methodNames objectAtIndex:currMethod];
+    NSLog(@" method, pb = %d, %d", currMethod, currPlaceBell);
+    methodLabel.text = [[methods objectAtIndex:currMethod] title];
     stageLabel.text = [NSString stringWithFormat:@"%d", currPlaceBell];
+    if (showingBlueLine) {
+        [blueLineView setMethod:[methods objectAtIndex:currMethod] placeBell:currPlaceBell];
+    }
 }
 
 - (void)viewDidLoad {
@@ -88,6 +109,9 @@
 {
     [self setMethodLabel:nil];
     [self setStageLabel:nil];
+    [self setLineOrNameToggleButton:nil];
+    [self setBlueLineView:nil];
+    [self setMethodNameView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -103,6 +127,28 @@
     NSLog(@" button pressed");
     [self changeDisplay];
 }
+
+- (IBAction)lineOrNameToggleButtonTouched:(id)sender {
+    NSLog(@" Bang!");
+    
+    NSLog(@" all methods from DB = %@", methods);
+    
+    showingBlueLine = !showingBlueLine;
+    
+    if (showingBlueLine) {
+        NSLog(@" show blue line!");
+        [blueLineView setMethod:[methods objectAtIndex:currMethod] placeBell:currPlaceBell];
+        methodNameView.hidden = true;
+        blueLineView.hidden = false;
+    }
+    else {
+        NSLog(@" show method name!");
+        blueLineView.hidden = true;
+        methodNameView.hidden = false;
+    }
+
+}
+
 @end
 
 

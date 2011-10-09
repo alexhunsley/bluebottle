@@ -9,6 +9,7 @@
 #import "BlueBottleAppDelegate.h"
 
 #import "BlueBottleViewController.h"
+#import "CombinationProducer.h"
 
 @implementation BlueBottleAppDelegate
 
@@ -19,6 +20,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    CombinationProducer *comboProd = [[CombinationProducer alloc] initWithComboSpec:[NSArray arrayWithObjects:[NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], nil] mode:COMBO_MODE_SEQUENTIAL];
+    
+    for (int i = 0; i < 24; i++) {
+        NSLog(@" combo: %@", [comboProd nextCombo]);
+    }
     // Override point for customization after application launch.
      
     self.window.rootViewController = self.viewController;
