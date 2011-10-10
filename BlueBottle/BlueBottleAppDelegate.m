@@ -22,6 +22,8 @@
 {
     CombinationProducer *comboProd = [[CombinationProducer alloc] initWithComboSpec:[NSArray arrayWithObjects:[NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], nil] mode:COMBO_MODE_SEQUENTIAL];
     
+
+    [comboProd lockIndex:0 toValue:1];
     for (int i = 0; i < 24; i++) {
         NSLog(@" combo: %@", [comboProd nextCombo]);
     }

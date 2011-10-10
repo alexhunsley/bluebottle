@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "BlueLineView.h"
 
+typedef enum {
+    LOCK_TYPE_NONE,
+    LOCK_TYPE_PLACE_BELL,
+    LOCK_TYPE_METHOD,
+    LOCK_TYPE_SENTINEL
+} LockType;
+
+
 @interface BlueBottleViewController : UIViewController {
     
     UILabel *methodLabel;
@@ -18,6 +26,7 @@
     NSArray *methods;
     BlueLineView *blueLineView;
     UIView *methodNameView;
+    LockType lockType;
 }
 - (IBAction)buttonPressed:(id)sender;
 @property (nonatomic, retain) IBOutlet UILabel *methodLabel;
@@ -28,5 +37,8 @@
 - (IBAction)lineOrNameToggleButtonTouched:(id)sender;
 @property (nonatomic, retain) IBOutlet BlueLineView *blueLineView;
 @property (nonatomic, retain) IBOutlet UIView *methodNameView;
+- (IBAction)noLockButtonTouched:(id)sender;
+- (IBAction)lockPlaceBellButtonTouched:(id)sender;
+- (IBAction)lockMethodButtonTouched:(id)sender;
 
 @end

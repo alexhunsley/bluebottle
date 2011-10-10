@@ -73,7 +73,20 @@ static NSString *roundsTemplate = @"1234567890ET";
 	[changes addObject:rounds];
 	
 	NSArray* PN = [placeNotation componentsSeparatedByString:@"."];
-	NSMutableArray* singlePN = [PN mutableCopy];
+	NSMutableArray* singlePN = [NSMutableArray arrayWithArray:PN];
+
+    NSString *lastItem = [singlePN objectAtIndex:[singlePN count] - 1];
+    
+    if ([lastItem isEqualToString:@"&"]) {
+        [singlePN removeLastObject];
+        NSMutableArray *pnCopy = [singlePN mutableCopy];
+        [pnCopy removeLastObject];
+        NSEnumerator *reverseEnum = [pnCopy reverseObjectEnumerator];
+        NSArray *reverseAllObjects = [reverseEnum allObjects];
+        //NSLog(@" reverseAllObjects: %@", reverseAllObjects);
+        [singlePN addObjectsFromArray:reverseAllObjects];
+    }
+    // TODO why is our reversed list not getting added? Object identity problem?
     [singlePN addObject:leadEnd];
 
     leadEndLength = [singlePN count];
@@ -119,9 +132,9 @@ static NSString *roundsTemplate = @"1234567890ET";
 	} while (! [currChange isEqualToString:rounds]);
 	
     placeBellOrder = [[pbOrder description] retain];
-    NSLog(@" pbOrder= %@", placeBellOrder);
+    //NSLog(@" pbOrder= %@", placeBellOrder);
     
-	NSLog(@"%@", changes);
+	//NSLog(@"%@", changes);
 	numChanges = [changes count];
 	leadEndLength = [singlePN count];
 }

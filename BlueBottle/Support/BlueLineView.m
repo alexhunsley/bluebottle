@@ -61,10 +61,13 @@
 - (void)calcLayout {
 	//percentages
 
-	leftMargin = 0.2f;
-	rightMargin = 0.8f;
-	
-	int numBells = 8;
+//	leftMargin = 0.2f;
+//	rightMargin = 0.8f;
+    
+    leftMargin = 0.04f;
+    rightMargin = 1.0f - leftMargin;
+    
+    int numBells = 8;
 	
 	
 	float w = self.bounds.size.width;
@@ -293,15 +296,15 @@ CGRect* splitRectHorizontally(CGRect rect, int numberParts, float subrectGrowAmo
 	// DRAW: background grid
 	CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:0.6f green:0.9f blue:1.0f alpha:0.5f] CGColor] );
 
-	for (float xLine = (actualLeftMargin % xGridDelta); xLine <= rect.size.width; xLine += xGridDelta) {
+	for (float xLine = (actualLeftMargin % xGridDelta); xLine < rect.size.width; xLine += xGridDelta) {
 		CGContextMoveToPoint(context, xLine, 0.0f);
 		CGContextAddLineToPoint(context, xLine, rect.size.height);				
 	}
 
-	for (float yLine = ((int)topMargin % (int)(2.0f*scaleY)); yLine <= rect.size.height; yLine += 2.0f * scaleY) {
-		CGContextMoveToPoint(context, 0.0f, yLine);
-		CGContextAddLineToPoint(context, rect.size.width, yLine);				
-	}
+//	for (float yLine = ((int)topMargin % (int)(2.0f*scaleY)); yLine <= rect.size.height; yLine += 2.0f * scaleY) {
+//		CGContextMoveToPoint(context, 0.0f, yLine);
+//		CGContextAddLineToPoint(context, rect.size.width, yLine);				
+//	}
 	
 	/*
 	CGContextMoveToPoint(context, 10.0f, 20.0f);

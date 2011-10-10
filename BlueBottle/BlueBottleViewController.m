@@ -8,12 +8,15 @@
 
 #import "BlueBottleViewController.h"
 #import "MethodsDAO.h"
+#import "CombinationProducer.h"
+
 
 @interface BlueBottleViewController () 
 
 @property (retain, nonatomic) NSMutableArray *methodNames;
 @property (nonatomic) int currMethod;
 @property (nonatomic) int currPlaceBell;
+@property (retain, nonatomic) CombinationProducer *comboProducer;
 
 @end
 
@@ -28,6 +31,7 @@
 @synthesize currMethod;
 @synthesize currPlaceBell;
 @synthesize methods;
+@synthesize comboProducer;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     NSLog(@" initWithCoder");
@@ -39,7 +43,11 @@
             MethodsDAO *dao = [[MethodsDAO alloc] initWithFilename:@"bluebottleMethods.sqlite"];
             self.methods = [dao getAllMethods];
             //[dao release];
+            
+            self.comboProducer = [[CombinationProducer alloc] initWithComboSpec:[NSArray arrayWithObjects:[NSNumber numberWithInt:[methods count]], [NSNumber numberWithInt:7], nil] mode:COMBO_MODE_RANDOM_EXHAUSTIVE];
+            
         }
+        lockType = LOCK_TYPE_NONE;
     }
     return self;
 }
@@ -82,17 +90,21 @@
 }
 */
 - (void)changeDisplay {
-    int newMethod = 0;
-    int newPlaceBell = 0;
+//    int newMethod = 0;
+//    int newPlaceBell = 0;    
+//    do {
+////        newMethod = rand () % [methodNames count];
+//        newMethod = rand () % [methods count];
+//        newPlaceBell = 2 + rand () % 7;
+//        
+//    } while (newMethod == currMethod && newPlaceBell == currPlaceBell);
+    //    currMethod = newMethod;
+    //    currPlaceBell = newPlaceBell;
     
-    do {
-//        newMethod = rand () % [methodNames count];
-        newMethod = rand () % [methods count];
-        newPlaceBell = 2 + rand () % 7;
-        
-    } while (newMethod == currMethod && newPlaceBell == currPlaceBell);
-    currMethod = newMethod;
-    currPlaceBell = newPlaceBell;
+    NSArray *array = [comboProducer nextCombo];
+   
+    currMethod = [[array objectAtIndex:0] intValue];
+    currPlaceBell = [[array objectAtIndex:1] intValue] + 2;
     NSLog(@" method, pb = %d, %d", currMethod, currPlaceBell);
     methodLabel.text = [[methods objectAtIndex:currMethod] title];
     stageLabel.text = [NSString stringWithFormat:@"%d", currPlaceBell];
@@ -137,16 +149,45 @@
     
     if (showingBlueLine) {
         NSLog(@" show blue line!");
+        
+        [lineOrNameToggleButton setTitle:@"Name" forState:UIControlStateNormal];
+        [lineOrNameToggleButton setTitle:@"Name" forState:UIControlStateHighlighted];
+//        
+//         
+//         UIControlStateNormal               = 0,
+//         UIControlStateHighlighted          = 1 << 0,
+//         UIControlStateDisabled             = 1 << 1,
+//         UIControlStateSelected     
+         
         [blueLineView setMethod:[methods objectAtIndex:currMethod] placeBell:currPlaceBell];
         methodNameView.hidden = true;
         blueLineView.hidden = false;
     }
     else {
         NSLog(@" show method name!");
+        [lineOrNameToggleButton setTitle:@"Line" forState:UIControlStateNormal];
+        [lineOrNameToggleButton setTitle:@"Line" forState:UIControlStateHighlighted];
+        
         blueLineView.hidden = true;
         methodNameView.hidden = false;
     }
 
+}
+
+- (IBAction)noLockButtonTouched:(id)sender {
+    lockType = LOCK_TYPE_NONE;
+    [comboProducer removeIndexLock];
+}
+
+- (IBAction)lockPlaceBellButtonTouched:(id)sender {
+    lockType = LOCK_TYPE_PLACE_BELL;
+    NSLog(@" lock place bell, currPlaceBell = %d", currPlaceBell);
+    [comboProducer lockIndex:1 toValue:currPlaceBell - 2]; // because we have a 2 offset elsewhere
+}
+
+- (IBAction)lockMethodButtonTouched:(id)sender {
+    lockType = LOCK_TYPE_METHOD;
+    [comboProducer lockIndex:0 toValue:currMethod];
 }
 
 @end

@@ -20,11 +20,14 @@ typedef enum {
 @interface CombinationProducer : NSObject {
     NSArray *comboSpec;
     EComboMode comboMode;
+    int lockedIndex;
+    int lockedToValue;
 }
 
 - (id)initWithComboSpec:(NSArray *)comboSpecIn mode:(EComboMode)comboModeIn;
 - (NSArray *)nextCombo;
 
-  
-    
+- (void)removeIndexLock;
+- (void)lockIndex:(int)idx toValue:(int)value;
+
 @end

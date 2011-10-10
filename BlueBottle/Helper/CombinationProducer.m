@@ -44,6 +44,8 @@
         comboSpec = comboSpecIn;
         [comboSpec retain];
         comboMode = comboModeIn;
+        lockedIndex = -1;
+        lockedToValue = 0;
     }
     return self;
 }
@@ -60,6 +62,10 @@
     // TODO need this?
     memset(currentIndexCount, 0, sizeof(int) * comboSpecSize);
     
+    if (lockedIndex >= 0) {
+        currentIndexCount[lockedIndex] = lockedToValue;
+    }
+        
 //    int currentIndex = 0;
 
     bool finished = false;    
@@ -70,19 +76,29 @@
             [combo addObject:[NSNumber numberWithInt:currentIndexCount[i]]];
         }
         [comboPool addObject:combo];
-        //NSLog(@" adding this combo to pool: %@", combo);
-        int incrementIdx = 0;
+        NSLog(@" adding this combo to pool: %@", combo);
+        int incrementIdx = -1;
+        bool digitTickedOver;
         
-        currentIndexCount[incrementIdx]++;
-        while (currentIndexCount[incrementIdx] == [[comboSpec objectAtIndex:incrementIdx] intValue]) {
-            currentIndexCount[incrementIdx] = 0;
+        do {
             incrementIdx++;
             if (incrementIdx == comboSpecSize) {
                 finished = true;
                 break;
             }
-            currentIndexCount[incrementIdx]++;
-        }
+            digitTickedOver = false;
+            if (incrementIdx == lockedIndex) {
+                digitTickedOver = true;
+
+            }
+            else {
+                currentIndexCount[incrementIdx] += 1;
+                if (currentIndexCount[incrementIdx] == [[comboSpec objectAtIndex:incrementIdx]  intValue]) {
+                    currentIndexCount[incrementIdx] = 0;
+                    digitTickedOver = true;
+                }
+            }
+        } while (digitTickedOver);
     }
 }
 
@@ -125,8 +141,19 @@
     return [self removeOneRandomlyFromComboPool];
 }
 
-- (void)dealloc {
+- (void)removeIndexLock {
+    lockedIndex = -1;
+    [self setupComboPool];
+}
 
+- (void)lockIndex:(int)idx toValue:(int)value {
+    lockedIndex = idx;
+    lockedToValue = value;
+    [self setupComboPool];
+}
+
+
+- (void)dealloc {
     [comboPool release];
     [comboSpec release];
     [super dealloc];
