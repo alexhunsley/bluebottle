@@ -21,7 +21,7 @@
 @property (nonatomic) int yGridDelta;
 @property (nonatomic) float handDrawCurrentX;
 @property (nonatomic) float handDrawCurrentY;
-
+@property (retain, nonatomic) NSMutableArray *treblePoints;
 
 @end
 
@@ -41,7 +41,9 @@
 @synthesize handDrawCurrentX;
 @synthesize handDrawCurrentY;
 @synthesize blg;
+@synthesize blgTreble;
 @synthesize viewSize;
+@synthesize treblePoints;
 
 #pragma mark -
 #pragma mark Init, dealloc
@@ -111,6 +113,10 @@
 	method = m;
 	
     blg = [[BlueLineGenerator alloc] initWithMethod:method];
+    if (treblePoints == nil) {
+        self.treblePoints = [blg generateLineForBell:1];
+    }
+    
     //[blg generateLineForBell:4];
 //    [blg generateBlueLines];
     [blg generateForBell:placeBell];
@@ -345,15 +351,31 @@ CGRect* splitRectHorizontally(CGRect rect, int numberParts, float subrectGrowAmo
 	//Set the stroke (pen) color
 	//CGContextSetStrokeColorWithColor(context, [[UIColor blueColor] CGColor]);
 
-	CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:0.0f green:0.0f blue:1.0f alpha:0.6f] CGColor]);
-
 	//[[UIColor colorWithRed:0.6f green:0.9f blue:1.0f alpha:0.5f] CGColor]
+
+    // treble line
+    
+	//CGContextMoveToPoint(context, 20.0f, 20.0f);
+    
+	CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.2f] CGColor]);
 	
+	[self handDrawMoveToPoint:context coord:[treblePoints objectAtIndex:0]];
+	
+	for (int idx = 1; idx < [treblePoints count]; idx++) {
+		[self handDrawAddLineToPoint:context coord:[treblePoints objectAtIndex:idx]];
+	}
+	
+	CGContextStrokePath(context);
+
+    ///// method line
+    
 	NSMutableArray *pointsArray = blg.points;
 
-	NSLog(@" points array = %d", [pointsArray count]);			  
+	//NSLog(@" points array = %d", [pointsArray count]);			  
 								  
 	//CGContextMoveToPoint(context, 20.0f, 20.0f);
+    
+	CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:0.0f green:0.0f blue:1.0f alpha:0.6f] CGColor]);
 	
 	[self handDrawMoveToPoint:context coord:[pointsArray objectAtIndex:0]];
 	

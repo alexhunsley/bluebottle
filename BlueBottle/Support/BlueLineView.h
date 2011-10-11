@@ -16,10 +16,14 @@
 	float offsetY;
 	float scaleX;
 	float scaleY;
+    Method *method;
+    BlueLineGenerator *blg;
+    BlueLineGenerator *blgTreble;
 }
 
 @property (retain, nonatomic) Method *method;
 @property (retain, nonatomic) BlueLineGenerator *blg;
+@property (retain, nonatomic) BlueLineGenerator *blgTreble;
 
 @property (nonatomic) float leftMargin;
 @property (nonatomic) float rightMargin;

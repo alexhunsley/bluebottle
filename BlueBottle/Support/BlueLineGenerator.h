@@ -17,7 +17,7 @@
 
 - (id)initWithMethod:(Method *)newMethod;
 - (void)generateBlueLines;
-//- (NSMutableArray *)generateLineForBell:(int)bell;
+- (NSMutableArray *)generateLineForBell:(int)bell;
 - (void)generateForBell:(int)bell;
 
 @property (readonly, nonatomic) Method *method;
