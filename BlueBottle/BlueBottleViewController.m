@@ -9,6 +9,7 @@
 #import "BlueBottleViewController.h"
 #import "MethodsDAO.h"
 #import "CombinationProducer.h"
+#import "BLOptionsViewController.h"
 
 
 @interface BlueBottleViewController () 
@@ -188,6 +189,12 @@
 - (IBAction)lockMethodButtonTouched:(id)sender {
     lockType = LOCK_TYPE_METHOD;
     [comboProducer lockIndex:0 toValue:currMethod];
+}
+
+- (IBAction)optionsButtonTouched:(id)sender {
+    BLOptionsViewController *optionsVC = [[BLOptionsViewController alloc] init];
+    [self presentModalViewController:optionsVC animated:YES];
+    [optionsVC release];
 }
 
 @end

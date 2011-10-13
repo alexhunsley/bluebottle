@@ -25,6 +25,8 @@
 		B884A065144228570058CEB2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B884A064144228570058CEB2 /* libsqlite3.dylib */; };
 		B884A07714422CC60058CEB2 /* MethodsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = B884A068144228D30058CEB2 /* MethodsDAO.m */; };
 		B884A0791442302E0058CEB2 /* bluebottleMethods.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = B884A0781442302E0058CEB2 /* bluebottleMethods.sqlite */; };
+		B884A07D1445FEA50058CEB2 /* BLOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B884A07B1445FE8B0058CEB2 /* BLOptionsViewController.m */; };
+		B884A07E1445FEA50058CEB2 /* BLOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B884A07C1445FE8D0058CEB2 /* BLOptionsViewController.xib */; };
 		B8AEA99414389029009C7CCB /* CombinationProducer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AEA99314389029009C7CCB /* CombinationProducer.m */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,9 @@
 		B884A067144228D30058CEB2 /* MethodsDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MethodsDAO.h; sourceTree = "<group>"; };
 		B884A068144228D30058CEB2 /* MethodsDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MethodsDAO.m; sourceTree = "<group>"; };
 		B884A0781442302E0058CEB2 /* bluebottleMethods.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = bluebottleMethods.sqlite; sourceTree = SOURCE_ROOT; };
+		B884A07A1445FE8A0058CEB2 /* BLOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLOptionsViewController.h; sourceTree = "<group>"; };
+		B884A07B1445FE8B0058CEB2 /* BLOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLOptionsViewController.m; sourceTree = "<group>"; };
+		B884A07C1445FE8D0058CEB2 /* BLOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BLOptionsViewController.xib; sourceTree = "<group>"; };
 		B8AEA99214389029009C7CCB /* CombinationProducer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CombinationProducer.h; sourceTree = "<group>"; };
 		B8AEA99314389029009C7CCB /* CombinationProducer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CombinationProducer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +123,9 @@
 				B85DC6EE142CCB3400AC057D /* BlueBottleViewController.h */,
 				B85DC6EF142CCB3400AC057D /* BlueBottleViewController.m */,
 				B85DC6F1142CCB3400AC057D /* BlueBottleViewController.xib */,
+				B884A07A1445FE8A0058CEB2 /* BLOptionsViewController.h */,
+				B884A07B1445FE8B0058CEB2 /* BLOptionsViewController.m */,
+				B884A07C1445FE8D0058CEB2 /* BLOptionsViewController.xib */,
 				B85DC6E0142CCB3400AC057D /* Supporting Files */,
 			);
 			path = BlueBottle;
@@ -223,6 +231,7 @@
 				B85DC6ED142CCB3400AC057D /* MainWindow.xib in Resources */,
 				B85DC6F3142CCB3400AC057D /* BlueBottleViewController.xib in Resources */,
 				B884A0791442302E0058CEB2 /* bluebottleMethods.sqlite in Resources */,
+				B884A07E1445FEA50058CEB2 /* BLOptionsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +253,7 @@
 				B884A061144205310058CEB2 /* LineCollection.m in Sources */,
 				B884A062144205310058CEB2 /* Method.m in Sources */,
 				B884A07714422CC60058CEB2 /* MethodsDAO.m in Sources */,
+				B884A07D1445FEA50058CEB2 /* BLOptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

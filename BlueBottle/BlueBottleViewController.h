@@ -40,5 +40,6 @@ typedef enum {
 - (IBAction)noLockButtonTouched:(id)sender;
 - (IBAction)lockPlaceBellButtonTouched:(id)sender;
 - (IBAction)lockMethodButtonTouched:(id)sender;
+- (IBAction)optionsButtonTouched:(id)sender;
 
 @end
