@@ -27,6 +27,7 @@
 		B884A0791442302E0058CEB2 /* bluebottleMethods.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = B884A0781442302E0058CEB2 /* bluebottleMethods.sqlite */; };
 		B884A07D1445FEA50058CEB2 /* BLOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B884A07B1445FE8B0058CEB2 /* BLOptionsViewController.m */; };
 		B884A07E1445FEA50058CEB2 /* BLOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B884A07C1445FE8D0058CEB2 /* BLOptionsViewController.xib */; };
+		B884A081144797580058CEB2 /* UserSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = B884A080144797530058CEB2 /* UserSettingsController.m */; };
 		B8AEA99414389029009C7CCB /* CombinationProducer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AEA99314389029009C7CCB /* CombinationProducer.m */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,8 @@
 		B884A07A1445FE8A0058CEB2 /* BLOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLOptionsViewController.h; sourceTree = "<group>"; };
 		B884A07B1445FE8B0058CEB2 /* BLOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLOptionsViewController.m; sourceTree = "<group>"; };
 		B884A07C1445FE8D0058CEB2 /* BLOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BLOptionsViewController.xib; sourceTree = "<group>"; };
+		B884A07F144797510058CEB2 /* UserSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsController.h; sourceTree = "<group>"; };
+		B884A080144797530058CEB2 /* UserSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsController.m; sourceTree = "<group>"; };
 		B8AEA99214389029009C7CCB /* CombinationProducer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CombinationProducer.h; sourceTree = "<group>"; };
 		B8AEA99314389029009C7CCB /* CombinationProducer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CombinationProducer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +129,8 @@
 				B884A07A1445FE8A0058CEB2 /* BLOptionsViewController.h */,
 				B884A07B1445FE8B0058CEB2 /* BLOptionsViewController.m */,
 				B884A07C1445FE8D0058CEB2 /* BLOptionsViewController.xib */,
+				B884A07F144797510058CEB2 /* UserSettingsController.h */,
+				B884A080144797530058CEB2 /* UserSettingsController.m */,
 				B85DC6E0142CCB3400AC057D /* Supporting Files */,
 			);
 			path = BlueBottle;
@@ -254,6 +259,7 @@
 				B884A062144205310058CEB2 /* Method.m in Sources */,
 				B884A07714422CC60058CEB2 /* MethodsDAO.m in Sources */,
 				B884A07D1445FEA50058CEB2 /* BLOptionsViewController.m in Sources */,
+				B884A081144797580058CEB2 /* UserSettingsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

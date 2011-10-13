@@ -27,6 +27,6 @@
 
 - (id)initWithTitle:(NSString*)newTitle numBells:(int)newNumBells
 		   notation:(NSString*)newPlaceNotation leadEnd:(NSString *)newLeadEnd;
-
+- (int)nextPlaceBellFromPlaceBell:(int)currPlaceBell;
 
 @end

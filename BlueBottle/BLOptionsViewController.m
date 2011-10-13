@@ -7,17 +7,7 @@
 //
 
 #import "BLOptionsViewController.h"
-
-#define PREF_PB_ORDER @"PREF_PB_ORDER"
-#define PREF_CALLS_TYPE @"PREF_CALLS_TYPE"
-
-typedef enum {
-    CALLS_TYPE_NONE,
-    CALLS_TYPE_BOBS,
-    CALLS_TYPE_SINGLES,
-    CALLS_TYPE_BOTH,
-    CALLS_TYPE_SENTINEL
-} CallsType;
+#import "UserSettingsController.h"
 
 @implementation BLOptionsViewController
 @synthesize callsView;
@@ -55,9 +45,8 @@ typedef enum {
 {
     [super viewDidLoad];
     
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    pbOrderSwitch.on = [standardUserDefaults boolForKey:PREF_PB_ORDER];
-    callsTypeSegment.selectedSegmentIndex = [standardUserDefaults integerForKey:PREF_CALLS_TYPE];
+    pbOrderSwitch.on = [UserSettingsController realisticPBOrder];
+    callsTypeSegment.selectedSegmentIndex = [UserSettingsController callsMode];
     
     NSLog(@" !! viewDidLoad, set toggle to %d", pbOrderSwitch.on);
     
@@ -99,14 +88,12 @@ typedef enum {
 
     NSLog(@" !! place bell action, toggle set to %d", pbOrderToggle.on);
 
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    [standardUserDefaults setBool:pbOrderToggle.on forKey:PREF_PB_ORDER];
+    [UserSettingsController setRealisticPBOrder:pbOrderToggle.on];
 }
 
 - (IBAction)callsSegmentedValueChanged:(id)sender {
     NSLog(@" calls segment changed action");
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    [standardUserDefaults setInteger:callsTypeSegment.selectedSegmentIndex forKey:PREF_CALLS_TYPE];
+    [UserSettingsController setRealisticPBOrder:callsTypeSegment.selectedSegmentIndex];
 }
 
 - (IBAction)doneButtonTouched:(id)sender {

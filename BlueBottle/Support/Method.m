@@ -139,6 +139,15 @@ static NSString *roundsTemplate = @"1234567890ET";
 	leadEndLength = [singlePN count];
 }
 
+- (int)nextPlaceBellFromPlaceBell:(int)currPlaceBell {
+    int idx = [placeBellOrder rangeOfString:[NSString stringWithFormat:@"%d", currPlaceBell]].location;
+    idx++;
+    if (idx >= [placeBellOrder length]) {
+        idx = 0;
+    }
+    return [placeBellOrder characterAtIndex:idx] - '0';  
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"(Method: %@, %d, %@, %@, %@)", title, numBells, placeNotation, leadEnd, placeBellOrder];
 }

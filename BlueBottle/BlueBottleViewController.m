@@ -10,7 +10,8 @@
 #import "MethodsDAO.h"
 #import "CombinationProducer.h"
 #import "BLOptionsViewController.h"
-
+#import "UserSettingsController.h"
+#import "Method.h"
 
 @interface BlueBottleViewController () 
 
@@ -18,6 +19,8 @@
 @property (nonatomic) int currMethod;
 @property (nonatomic) int currPlaceBell;
 @property (retain, nonatomic) CombinationProducer *comboProducer;
+
+- (void)setupComboProducer;
 
 @end
 
@@ -45,14 +48,24 @@
             self.methods = [dao getAllMethods];
             //[dao release];
             
-            self.comboProducer = [[CombinationProducer alloc] initWithComboSpec:[NSArray arrayWithObjects:[NSNumber numberWithInt:[methods count]], [NSNumber numberWithInt:7], nil] mode:COMBO_MODE_RANDOM_EXHAUSTIVE];
-            
+            [self setupComboProducer];
         }
         lockType = LOCK_TYPE_NONE;
     }
     return self;
 }
 
+- (void)setupComboProducer {
+    if ([UserSettingsController realisticPBOrder]) {
+        // We want a combo producer that provides methods.
+        // The place bell is dictated by the last method's placebell.
+        self.comboProducer = [[CombinationProducer alloc] initWithComboSpec:[NSArray arrayWithObjects:[NSNumber numberWithInt:[methods count]], nil] mode:COMBO_MODE_RANDOM_EXHAUSTIVE];        
+    }
+    else {
+        // we want a combo producer that provides a place bells and methods per combo
+        self.comboProducer = [[CombinationProducer alloc] initWithComboSpec:[NSArray arrayWithObjects:[NSNumber numberWithInt:[methods count]], [NSNumber numberWithInt:7], nil] mode:COMBO_MODE_RANDOM_EXHAUSTIVE];
+    }
+}
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 //    NSLog(@" initWithNibName");
@@ -104,8 +117,18 @@
     
     NSArray *array = [comboProducer nextCombo];
    
-    currMethod = [[array objectAtIndex:0] intValue];
-    currPlaceBell = [[array objectAtIndex:1] intValue] + 2;
+    
+    if ([UserSettingsController realisticPBOrder]) {
+        Method *method = [methods objectAtIndex:currMethod];
+        currPlaceBell = [method nextPlaceBellFromPlaceBell:currPlaceBell];
+    }
+    else {
+        currPlaceBell = [[array objectAtIndex:1] intValue] + 2;
+    }
+
+     currMethod = [[array objectAtIndex:0] intValue];
+                         
+
     NSLog(@" method, pb = %d, %d", currMethod, currPlaceBell);
     methodLabel.text = [[methods objectAtIndex:currMethod] title];
     stageLabel.text = [NSString stringWithFormat:@"%d", currPlaceBell];
