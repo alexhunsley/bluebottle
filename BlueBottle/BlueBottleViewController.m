@@ -47,8 +47,6 @@
             MethodsDAO *dao = [[MethodsDAO alloc] initWithFilename:@"bluebottleMethods.sqlite"];
             self.methods = [dao getAllMethods];
             //[dao release];
-            
-            [self setupComboProducer];
         }
         lockType = LOCK_TYPE_NONE;
     }
@@ -117,16 +115,17 @@
     
     NSArray *array = [comboProducer nextCombo];
    
+    if (lockType != LOCK_TYPE_PLACE_BELL) {
+        if ([UserSettingsController realisticPBOrder]) {
+            Method *method = [methods objectAtIndex:currMethod];
+            currPlaceBell = [method nextPlaceBellFromPlaceBell:currPlaceBell];
+        }
+        else {
+            currPlaceBell = [[array objectAtIndex:1] intValue] + 2;
+        }
+    }
     
-    if ([UserSettingsController realisticPBOrder]) {
-        Method *method = [methods objectAtIndex:currMethod];
-        currPlaceBell = [method nextPlaceBellFromPlaceBell:currPlaceBell];
-    }
-    else {
-        currPlaceBell = [[array objectAtIndex:1] intValue] + 2;
-    }
-
-     currMethod = [[array objectAtIndex:0] intValue];
+    currMethod = [[array objectAtIndex:0] intValue];
                          
 
     NSLog(@" method, pb = %d, %d", currMethod, currPlaceBell);
@@ -137,7 +136,14 @@
     }
 }
 
-- (void)viewDidLoad {
+//- (void)viewDidLoad {
+//    [self setupComboProducer];
+//    [self changeDisplay];
+//}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self setupComboProducer];
     [self changeDisplay];
 }
 
