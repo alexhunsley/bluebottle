@@ -210,6 +210,8 @@
 /* Begin PBXProject section */
 		B85DC6CC142CCB3400AC057D /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = B85DC6CF142CCB3400AC057D /* Build configuration list for PBXProject "BlueBottle" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -329,11 +331,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlueBottle/BlueBottle-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "BlueBottle/BlueBottle-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -343,10 +348,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlueBottle/BlueBottle-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "BlueBottle/BlueBottle-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
